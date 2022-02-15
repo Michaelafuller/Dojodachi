@@ -1,0 +1,53 @@
+﻿@model Pet
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="container-fluid">
+    <div class="text-center d-flex">
+        <p>Fullness: @ViewBag.Full</p>
+        <p>Happiness:  @ViewBag.Happy</p>
+        <p>Meals: @ViewBag.Meals</p>
+        <p>Energy: @ViewBag.Energy</p>
+    </div>
+
+    <div class="container">
+        <img src="~/images/pet.jpg" alt="trapped virtual pet">
+    </div>
+
+    <p>@ViewBag.Message</p>
+
+    <div class="d-flex">
+        <form asp-action="Feed" asp-controller="Home" method="post">
+        <span asp-validation-for="Meals"></span>
+            <button class="btn btn-primary">Feed</button>
+        </form>
+        <form asp-action="Play" asp-controller="Home" method="post">
+        <span asp-validation-for="Energy"></span>
+            <button class="btn btn-primary">Play</button>
+        </form>
+        <form asp-action="Work" asp-controller="Home" method="post">
+            <button class="btn btn-primary">Work</button>
+        </form>
+        <form asp-action="Sleep" asp-controller="Home" method="post">
+            <button class="btn btn-primary">Sleep</button>
+        </form>
+    </div>
+        @{
+            if (ViewBag.Full == 0 || ViewBag.Happy == 0 || ViewBag.Energy == 0)
+            {
+                <form asp-action="Reset">
+                    <p>Your pet has passed away...</p>
+                    <button class="btn btn-danger">Reset</button>
+                </form>
+            }
+            if (ViewBag.Full >= 100 && ViewBag.Happy >= 100 && ViewBag.Energy >= 100)
+            {
+                <form asp-action="Reset">
+                    <p>You win!</p>
+                    <button class="btn btn-success">Reset</button>
+                </form>
+
+            }
+        }
+
+</div>
